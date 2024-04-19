@@ -23,6 +23,7 @@ public class StopServer implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         System.out.println("Stopping server after 1 second delay");
         server.stop(1);
-        // httpThreadPool.shutdownNow();
+        //httpThreadPool.shutdownNow();
+        System.out.println("Server stopped");
     }
 }

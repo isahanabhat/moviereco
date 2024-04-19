@@ -29,5 +29,6 @@ public class Moviereco {
         
         server.setExecutor(Executors.newFixedThreadPool(5));
         server.start();
+        System.out.println("Web server started");
     }
 }
