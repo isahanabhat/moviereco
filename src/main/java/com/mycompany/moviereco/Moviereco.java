@@ -26,6 +26,7 @@ public class Moviereco {
         server.createContext("/heartbeat", new Heartbeat());
         server.createContext("/stopserver", new StopServer(server));
         server.createContext("/highestmovierevenue", new TopGrossers(mmd));
+        server.createContext("/query", new Query(mmd));
         
         server.setExecutor(Executors.newFixedThreadPool(5));
         server.start();

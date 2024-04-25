@@ -85,4 +85,69 @@ public class MovieMetadata {
         
         return j.toString();
     }
+    
+    public String getMovieData(String movieName){
+        String movie = movieName.replaceAll("%20", " ");
+        int movIndex = header.indexOf("original_title");
+        
+        ArrayList<String> row = new ArrayList<>();
+        
+        for(int i = 0; i < data.size(); i++){
+            ArrayList<String> temp = data.get(i);
+            if(temp.get(movIndex).equals(movie)){
+                row = temp;
+            }
+        }
+        
+        JSONObject j = new JSONObject();
+        
+        for(int i = 0; i < header.size(); i++){
+            j.put(header.get(i), row.get(i));
+        }
+        
+        return j.toString();
+    }
+    
+    public String getMovieList(String releaseYear, float voterAvg){
+        
+        String[] date = releaseYear.split("-");
+        
+        String year = date[date.length-1];
+        
+        int movInd = header.indexOf("original_title");
+        int yearInd = header.indexOf("release_date");
+        int voterInd = header.indexOf("vote_average");
+        
+        JSONObject j = new JSONObject();
+        JSONArray mov = new JSONArray();
+        
+        // ArrayList<String> row = new ArrayList<>();
+        //System.out.println("voter = "+voterAvg);
+        
+        for(int i = 0; i < data.size(); i++){
+            ArrayList<String> temp = data.get(i);
+            String vote = temp.get(voterInd);
+            if("".equals(vote)) { continue; }
+            float voteVal = Float.parseFloat(vote);
+            
+            String dateVal = temp.get(yearInd);
+            if(dateVal.length() != 10) { continue; }
+            
+            String[] dateYear = dateVal.split("-");
+            if(dateYear.length != 3){ continue; }
+            
+            if(year.equals(dateYear[dateYear.length-1]) ){
+                //System.out.println("vote = "+voteVal);
+                if( voteVal >= voterAvg ){
+                    //System.out.println("success");
+                    mov.put(temp.get(movInd));
+                }
+            }
+            
+        }
+        j.put("movies", mov);
+        System.out.println(j.toString());
+        System.out.println(j.toString().length());
+        return j.toString();
+    }
 }

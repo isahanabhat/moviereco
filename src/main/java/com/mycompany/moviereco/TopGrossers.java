@@ -28,7 +28,6 @@ public class TopGrossers implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         String response;
         try {
-            
             response = mmd.getTopGrossers();
             t.sendResponseHeaders(200, response.length());
             OutputStream os =  t.getResponseBody();
