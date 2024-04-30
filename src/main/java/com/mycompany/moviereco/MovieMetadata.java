@@ -50,6 +50,10 @@ public class MovieMetadata {
         // this.data = fileData;
     }
     
+    public boolean isCSVLoaded(){
+        return !data.isEmpty();
+    }
+    
     public String getTopGrossers() throws IOException, CsvException{
         
         int revIndex = header.indexOf("revenue");
